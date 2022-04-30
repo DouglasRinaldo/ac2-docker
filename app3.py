@@ -1,14 +1,14 @@
 import os
 from flask import Flask, render_template, json, request
 from flaskext.mysql import MySQL
-#from werkzeug import generate_password_hash, check_password_hash
+#from werkzeug import generate_endereco_hash, check_endereco_hash
 
 mysql = MySQL()
 app = Flask(__name__)
 
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'mudar123'
+app.config['MYSQL_DATABASE_endereco'] = 'douglas123'
 app.config['MYSQL_DATABASE_DB'] = 'teste'
 app.config['MYSQL_DATABASE_HOST'] = '172.17.0.7'
 #app.config['MYSQL_DATABASE_HOST'] = '172.17.0.7'
@@ -29,19 +29,19 @@ def signUp():
     try:
         _name = request.form['inputName']
         _email = request.form['inputEmail']
-        _password = request.form['inputPassword']
+        _endereco = request.form['inputEndereco']
 
         print(_name)
         print(_email)
-        print(_password)
+        print(_endereco)
 
         # validate the received values
-        if _name and _email and _password:
+        if _name and _email and _endereco:
             
             conn = mysql.connect()
             cursor = conn.cursor()
-            _hashed_password = _password
-            cursor.execute('insert into tbl_user (user_name, user_username, user_password) VALUES (%s, %s, %s)', ( _name,_email,_hashed_password))
+            _hashed_endereco = _endereco
+            cursor.execute('insert into tbl_user (user_name, user_username, user_endereco) VALUES (%s, %s, %s)', ( _name,_email,_hashed_endereco))
             conn.commit()
 
             return render_template('signup.html')
@@ -59,9 +59,9 @@ def list():
     try:
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.execute ('select user_name, user_username from tbl_user')
+            cursor.execute ('select user_name, user_email, user_endereco from tbl_user')
             data = cursor.fetchall()
-            print(data[0]);
+            print(data[0])
 
             conn.commit()
             return render_template('signup2.html', datas=data)
