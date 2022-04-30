@@ -8,4 +8,4 @@ COPY templates/*  /templates/
 COPY static/*  /static/
 RUN chmod -R a+rwx static
 RUN chmod -R a+rwx templates
-CMD ["python","app.py"]
+CMD ["python","app3.py"]
