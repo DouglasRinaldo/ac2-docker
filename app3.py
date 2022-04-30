@@ -40,8 +40,7 @@ def signUp():
             
             conn = mysql.connect()
             cursor = conn.cursor()
-            _hashed_endereco = _endereco
-            cursor.execute('insert into tbl_user (user_name, user_username, user_endereco) VALUES (%s, %s, %s)', ( _name,_email,_hashed_endereco))
+            cursor.execute('insert into tbl_user (user_name, user_email, user_endereco) VALUES (%s, %s, %s)', ( _name,_email,_endereco))
             conn.commit()
 
             return render_template('signup.html')
